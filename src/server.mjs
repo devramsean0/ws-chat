@@ -72,6 +72,7 @@ export function createServer(port = 8080, heartbeatTime = 30000, authCode = '') 
 	function broadcast(message, source) {
 		for (const client of clients) {
 			if (client === source) continue;
+			if (client.alive == false) continue;
 			client.send(message, (error) => {
 				if (error) console.error(red('[WS]'), 'Error while sending message:', error);
 			});
