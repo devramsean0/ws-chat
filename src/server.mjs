@@ -14,11 +14,25 @@ export function createServer(port = 8080, heartbeatTime = 30000, authCode = '') 
 	wss.on('connection', (ws) => {
 		console.log(bgGreen(white('[WS]')), 'Recieved new connection');
 		clients.add(ws);
+		broadcast(
+			JSON.stringify({
+				type: 'join/leave',
+				status: 'joined'
+			}),
+			ws
+		);
 		ws.alive = true;
 
 		ws.on('close', () => {
 			console.log(bgYellow(white('[WS]')), 'Closed connection');
 			clients.delete(ws);
+			broadcast(
+				JSON.stringify({
+					type: 'join/leave',
+					status: 'left'
+				}),
+				ws
+			);
 		});
 		ws.on('error', (error) => {
 			console.log(bgRed(white('[WS] ERROR')), error);
@@ -42,6 +56,13 @@ export function createServer(port = 8080, heartbeatTime = 30000, authCode = '') 
 		ws.on('open', () => {
 			console.log(bgGreen(white('[WS]')), 'WebSocket reconnected');
 			clients.add(ws);
+			broadcast(
+				JSON.stringify({
+					type: 'join/leave',
+					status: 'reconnected'
+				}),
+				ws
+			);
 		});
 		ws.on('pong', () => {
 			ws.alive = true;

@@ -1,4 +1,4 @@
-import { bgRed, bgGreen, bgYellow, gray, white } from 'colorette';
+import { bgRed, bgGreen, bgYellow, gray, white, bgWhite, black } from 'colorette';
 import { WebSocket } from 'ws';
 export function createClient(ip = '127.0.0.1', port = 8080, username, authCode = '') {
 	const ws = new WebSocket(`ws://${ip}:${port}`);
@@ -15,6 +15,8 @@ export function createClient(ip = '127.0.0.1', port = 8080, username, authCode =
 		} else if (json.type === 'authFail') {
 			console.log(bgRed(white('[WS]')), 'Your Auth Token is incoreect');
 			ws.terminate();
+		} else if (json.type === 'join/leave') {
+			console.log(bgWhite(black(`A user has ${json.status}`)));
 		}
 	});
 	ws.on('open', () => {
