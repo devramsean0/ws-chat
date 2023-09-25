@@ -24,8 +24,11 @@ export function createServer(port = 8080, heartbeatTime = 30000) {
 			console.log(bgRed(white('[WS] ERROR')), error);
 		});
 		ws.on('message', (message) => {
-			console.log(bgWhite(black('[WS] MESSAGE')), `${gray('>')} ${message.toString('utf8')}`);
-			broadcast(message, ws);
+			const json = JSON.parse(message);
+			if (json.type === 'message') {
+				broadcast(message, ws);
+				console.log(bgWhite(black('[WS] MESSAGE')), `${json.username} ${gray('>')} ${json.message.toString('utf8')}`);
+			}
 		});
 		ws.on('open', () => {
 			console.log(bgGreen(white('[WS]')), 'WebSocket reconnected');

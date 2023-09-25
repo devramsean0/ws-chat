@@ -44,12 +44,17 @@ const main = defineCommand({
 				},
 				username: {
 					valueHint: 'YourUsername',
-					description: 'The username you want to use'
+					description: 'The username you want to use',
+					required: true
 				}
 			},
 			run({ args }) {
-				const { ws, send } = createClient(args.ip && String(args.ip), args.port && Number(args.port));
-				createInput(send, ws);
+				const { ws, sendMessage } = createClient(
+					args.ip && String(args.ip),
+					args.port && Number(args.port),
+					args.username && String(args.username)
+				);
+				createInput(sendMessage, ws);
 			}
 		}
 	}
