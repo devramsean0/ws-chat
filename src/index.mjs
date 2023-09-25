@@ -23,10 +23,18 @@ const main = defineCommand({
 				heartbeatTime: {
 					valueHint: 30000,
 					description: 'The Time between Heartbeat, lower is sometimes better'
+				},
+				authCode: {
+					valueHint: 'yourAuthCode',
+					description: 'The auth code for the server (if AuthCode is empty, auth is disabled)'
 				}
 			},
 			run({ args }) {
-				createServer(args.port && Number(args.port), args.heartbeatTime && Number(args.heartbeatTime));
+				createServer(
+					args.port && Number(args.port),
+					args.heartbeatTime && Number(args.heartbeatTime),
+					args.authCode && String(args.authCode)
+				);
 			}
 		},
 		client: {
@@ -46,13 +54,18 @@ const main = defineCommand({
 					valueHint: 'YourUsername',
 					description: 'The username you want to use',
 					required: true
+				},
+				authCode: {
+					valueHint: 'YourAuthCode',
+					description: 'The auth code of the server'
 				}
 			},
 			run({ args }) {
 				const { ws, sendMessage } = createClient(
 					args.ip && String(args.ip),
 					args.port && Number(args.port),
-					args.username && String(args.username)
+					args.username && String(args.username),
+					args.authCode && String(args.authCode)
 				);
 				createInput(sendMessage, ws);
 			}

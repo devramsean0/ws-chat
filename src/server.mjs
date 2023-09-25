@@ -1,6 +1,6 @@
-import { bgBlue, bgGreen, bgWhite, bgYellow, black, white, gray } from 'colorette';
+import { bgBlue, bgGreen, bgWhite, bgYellow, bgRed, black, white, gray } from 'colorette';
 import { WebSocketServer } from 'ws';
-export function createServer(port = 8080, heartbeatTime = 30000) {
+export function createServer(port = 8080, heartbeatTime = 30000, authCode = '') {
 	const wss = new WebSocketServer({ port });
 	const clients = new Set();
 
@@ -26,8 +26,17 @@ export function createServer(port = 8080, heartbeatTime = 30000) {
 		ws.on('message', (message) => {
 			const json = JSON.parse(message);
 			if (json.type === 'message') {
-				broadcast(message, ws);
-				console.log(bgWhite(black('[WS] MESSAGE')), `${json.username} ${gray('>')} ${json.message.toString('utf8')}`);
+				if (json.authCode == authCode) {
+					broadcast(message, ws);
+					console.log(bgWhite(black('[WS] MESSAGE')), `${json.username} ${gray('>')} ${json.message.toString('utf8')}`);
+				} else {
+					console.log(bgRed(white('[WS] AUTH')), 'Incorrect Auth token supplied, Terminating WS connection');
+					ws.send(
+						JSON.stringify({
+							type: 'authFail'
+						})
+					);
+				}
 			}
 		});
 		ws.on('open', () => {
