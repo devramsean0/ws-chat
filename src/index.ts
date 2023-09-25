@@ -1,8 +1,8 @@
 #! /usr/bin/env node
 import { defineCommand, runMain } from 'citty';
-import { createServer } from './server.mjs';
-import { createClient } from './client.mjs';
-import { createInput } from './reader.mjs';
+import { createServer } from './server.js';
+import { createClient } from './client.js';
+import { createInput } from './reader.js';
 
 const main = defineCommand({
 	meta: {
@@ -73,3 +73,6 @@ const main = defineCommand({
 	}
 });
 runMain(main);
+
+export * from './client.js';
+export * from './server.js';

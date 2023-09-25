@@ -1,5 +1,5 @@
-import { bgBlue, bgGreen, bgWhite, bgYellow, bgRed, black, white, gray } from 'colorette';
-import { WebSocketServer } from 'ws';
+import { bgBlue, bgGreen, bgWhite, bgYellow, bgRed, black, white, gray, red } from 'colorette';
+import { WebSocket, WebSocketServer } from 'ws';
 export function createServer(port = 8080, heartbeatTime = 30000, authCode = '') {
 	const wss = new WebSocketServer({ port });
 	const clients = new Set();
@@ -21,6 +21,7 @@ export function createServer(port = 8080, heartbeatTime = 30000, authCode = '') 
 			}),
 			ws
 		);
+		// @ts-ignore
 		ws.alive = true;
 
 		ws.on('close', () => {
@@ -38,7 +39,8 @@ export function createServer(port = 8080, heartbeatTime = 30000, authCode = '') 
 			console.log(bgRed(white('[WS] ERROR')), error);
 		});
 		ws.on('message', (message) => {
-			const json = JSON.parse(message);
+			const str = message.toString();
+			const json = JSON.parse(str.toString());
 			if (json.type === 'message') {
 				if (json.authCode == authCode) {
 					broadcast(message, ws);
@@ -65,26 +67,30 @@ export function createServer(port = 8080, heartbeatTime = 30000, authCode = '') 
 			);
 		});
 		ws.on('pong', () => {
+			// @ts-ignore
 			ws.alive = true;
 			console.log(bgGreen(white('[WS]')), `WebSocket responded to ping`);
 		});
 	});
-	function broadcast(message, source) {
+	function broadcast(message: any, source: WebSocket) {
 		for (const client of clients) {
+			const typedClient: any = client;
 			if (client === source) continue;
-			if (client.alive == false) continue;
-			client.send(message, (error) => {
+			if (typedClient.alive == false) continue;
+			typedClient.send(message, (error: Error) => {
 				if (error) console.error(red('[WS]'), 'Error while sending message:', error);
 			});
 		}
 	}
 	// Heartbeat
 	setInterval(function ping() {
-		wss.clients.forEach(function each(ws) {
+		wss.clients.forEach(function each(ws: WebSocket) {
+			// @ts-ignore
 			if (ws.alive === false) return clients.delete(ws);
-
+			// @ts-ignore
 			ws.alive = false;
 			ws.ping();
+			return;
 		});
 	}, heartbeatTime);
 	return { wss, broadcast };
