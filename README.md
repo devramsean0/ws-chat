@@ -10,10 +10,10 @@ This is the object that carries all custom data over the WS
 
 ```json
 {
-    type: "message",
-    username: string,
-    password:a\ message,
-    authCode: string
+    "type": "message",
+    "username": string,
+    "password": message,
+    "authCode": string
 }
 ```
 
@@ -22,6 +22,15 @@ This is the object that carries all custom data over the WS
 ```json
 {
 	"type": "authFail"
+}
+```
+
+### `type = "join/leave"
+
+```json
+{
+    "type": "join/leave",
+    "status": "joined" | "left" | "reconnected"
 }
 ```
 
