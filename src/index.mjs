@@ -20,9 +20,13 @@ const main = defineCommand({
                     valueHint: '8080',
                     description: 'The port to listen for WS connections on'
                 },
+                heartbeatTime: {
+                    valueHint: 30000,
+                    description: 'The Time between Heartbeat, lower is sometimes better'
+                }
             },
             run({ args }) {
-                createServer(args.port && Number(args.port));
+                createServer(args.port && Number(args.port), args.heartbeatTime && Number(args.heartbeatTime));
             }
         },
         client: {
