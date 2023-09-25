@@ -20,7 +20,6 @@
 		"prettier": "^3.0.3"
 	},
 	"scripts": {
-		"format": "",
 		"prepare": "husky install"
 	},
 	"prettier": "@sapphire/prettier-config",
