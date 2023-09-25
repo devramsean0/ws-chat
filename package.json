@@ -1,0 +1,16 @@
+{
+  "name": "@devramsean0/ws-chat",
+  "version": "1.0.0",
+  "main": "src/index.mjs",
+  "type": "module",
+  "author": "Sean Outram <outramsean0@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "citty": "^0.1.4",
+    "colorette": "^2.0.20",
+    "ws": "^8.14.2"
+  },
+  "bin": {
+    "ws-chat": "./src/index.mjs"
+  }
+}
