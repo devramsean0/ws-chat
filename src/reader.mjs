@@ -1,6 +1,6 @@
-import { createInterface } from "readline"
+import { createInterface } from 'readline';
 export function createInput(send, ws) {
-    const reader = createInterface({
+	const reader = createInterface({
 		input: process.stdin,
 		output: undefined
 	});

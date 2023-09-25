@@ -1,16 +1,30 @@
 {
-  "name": "@devramsean0/ws-chat",
-  "version": "1.0.0",
-  "main": "src/index.mjs",
-  "type": "module",
-  "author": "Sean Outram <outramsean0@gmail.com>",
-  "license": "MIT",
-  "dependencies": {
-    "citty": "^0.1.4",
-    "colorette": "^2.0.20",
-    "ws": "^8.14.2"
-  },
-  "bin": {
-    "ws-chat": "./src/index.mjs"
-  }
+	"name": "@devramsean0/ws-chat",
+	"version": "1.0.0",
+	"main": "src/index.mjs",
+	"type": "module",
+	"author": "Sean Outram <outramsean0@gmail.com>",
+	"license": "MIT",
+	"dependencies": {
+		"citty": "^0.1.4",
+		"colorette": "^2.0.20",
+		"ws": "^8.14.2"
+	},
+	"bin": {
+		"ws-chat": "./src/index.mjs"
+	},
+	"devDependencies": {
+		"@sapphire/prettier-config": "^2.0.0",
+		"husky": "^8.0.3",
+		"lint-staged": "^14.0.1",
+		"prettier": "^3.0.3"
+	},
+	"scripts": {
+		"format": "",
+		"prepare": "husky install"
+	},
+	"prettier": "@sapphire/prettier-config",
+	"lint-staged": {
+		"**/*": "prettier --write --ignore-unknown"
+	}
 }
