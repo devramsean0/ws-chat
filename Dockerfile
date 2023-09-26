@@ -1,4 +1,4 @@
-FROM node:18-alpine as setup
+FROM node:18 as setup
 WORKDIR /app
 RUN apt install git -y
 COPY package*.json ./
