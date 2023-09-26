@@ -8,7 +8,7 @@ COPY . .
 
 FROM setup as build
 RUN yarn install
-RUN yarn Build
+RUN yarn build
 
 ARG PORT
 ARG heartbeatTime
