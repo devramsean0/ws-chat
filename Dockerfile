@@ -10,7 +10,6 @@ FROM setup as build
 RUN yarn install
 RUN yarn build
 
-ARG PORT
 ARG heartbeatTime
 ARG authCode
 FROM build as run
