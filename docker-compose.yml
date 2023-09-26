@@ -1,0 +1,11 @@
+services:
+  server:
+    image: wschat:latest
+    build:
+      context: .
+      args:
+        port: 8080
+        hearbeatTime: 30000
+        authCode: ''
+    ports:
+      - '8080:8080'
