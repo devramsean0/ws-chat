@@ -11,13 +11,18 @@ export function createClient(ip = '127.0.0.1', port = 8080, username: string, au
 	ws.on('message', (message) => {
 		const str = message.toString();
 		const json = JSON.parse(str);
-		if (json.type === 'message') {
-			console.log(`${json.username} ${gray('>')}`, json.message.toString('utf8'));
-		} else if (json.type === 'authFail') {
-			console.log(bgRed(white('[WS]')), 'Your Auth Token is incoreect');
-			ws.terminate();
-		} else if (json.type === 'join/leave') {
-			console.log(bgWhite(black(`A user has ${json.status}`)));
+		switch (json.type) {
+			case 'message':
+				console.log(`${json.username} ${gray('>')}`, json.message.toString('utf8'));
+				return;
+			case 'authFail':
+				console.log(bgRed(white('[WS]')), 'Your Auth Token is incoreect');
+				ws.terminate();
+				return;
+			case 'join/leave':
+				console.log(bgWhite(black(`A user has ${json.status}`)));
+				return;
+			default:
 		}
 	});
 	ws.on('open', () => {
