@@ -55,6 +55,13 @@ This is the object that carries all custom data over the WS
 }
 ```
 
+### `type == "authREQ"`
+
+````json
+{
+    "type": "authREQ"
+}
+
 ### `type = "join/leave"`
 
 ```json
@@ -62,6 +69,6 @@ This is the object that carries all custom data over the WS
     "type": "join/leave",
     "status": "joined" | "left" | "reconnected"
 }
-```
+````
 
 **Thanks to [kyranet/tiny-chat](https://github.com/kyranet/tiny-chat/) for the inspiration behind this project**

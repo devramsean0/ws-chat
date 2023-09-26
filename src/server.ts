@@ -1,5 +1,6 @@
 import { bgBlue, bgGreen, bgWhite, bgYellow, bgRed, black, white, gray, red } from 'colorette';
 import { WebSocket, WebSocketServer } from 'ws';
+import { checkAuth } from './lib/auth.js';
 export function createServer(port = 8080, heartbeatTime = 30000, authCode = '') {
 	const wss = new WebSocketServer({ port });
 	const clients = new Set();
@@ -13,14 +14,14 @@ export function createServer(port = 8080, heartbeatTime = 30000, authCode = '') 
 	});
 	wss.on('connection', (ws) => {
 		console.log(bgGreen(white('[WS]')), 'Recieved new connection');
-		clients.add(ws);
-		broadcast(
-			JSON.stringify({
-				type: 'join/leave',
-				status: 'joined'
-			}),
-			ws
-		);
+		//clients.add(ws);
+		//broadcast(
+		//	JSON.stringify({
+		//		type: 'join/leave',
+		//		status: 'joined'
+		//	}),
+		//	ws
+		//);
 		// @ts-ignore
 		ws.alive = true;
 
@@ -40,24 +41,29 @@ export function createServer(port = 8080, heartbeatTime = 30000, authCode = '') 
 		});
 		ws.on('message', (message) => {
 			const str = message.toString();
-			const json = JSON.parse(str.toString());
+			const json = JSON.parse(str);
 			if (json.type === 'message') {
-				if (json.authCode == authCode) {
+				if (checkAuth(json, authCode, ws)) {
 					broadcast(message, ws);
 					console.log(bgWhite(black('[WS] MESSAGE')), `${json.username} ${gray('>')} ${json.message.toString('utf8')}`);
-				} else {
-					console.log(bgRed(white('[WS] AUTH')), 'Incorrect Auth token supplied, Terminating WS connection');
-					ws.send(
+				}
+			} else if (json.type === 'authREQ') {
+				if (checkAuth(json, authCode, ws)) {
+					clients.add(ws);
+					broadcast(
 						JSON.stringify({
-							type: 'authFail'
-						})
+							type: 'join/leave',
+							status: 'joined'
+						}),
+						ws
 					);
+					console.log(bgBlue(white('[WS]')), 'Successfully Authenticated WebSocket');
 				}
 			}
 		});
 		ws.on('open', () => {
 			console.log(bgGreen(white('[WS]')), 'WebSocket reconnected');
-			clients.add(ws);
+			//clients.add(ws);
 			broadcast(
 				JSON.stringify({
 					type: 'join/leave',

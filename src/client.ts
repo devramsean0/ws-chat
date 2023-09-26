@@ -26,7 +26,13 @@ export function createClient(ip = '127.0.0.1', port = 8080, username: string, au
 		}
 	});
 	ws.on('open', () => {
-		console.log(bgGreen(white('[WS]')), 'WebSocket reconnected');
+		console.log(bgGreen(white('[WS]')), 'WebSocket connected - passing Auth details');
+		ws.send(
+			JSON.stringify({
+				type: 'authREQ',
+				authCode
+			})
+		);
 	});
 	function sendMessage(message: String) {
 		ws.send(
