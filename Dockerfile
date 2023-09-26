@@ -15,4 +15,4 @@ ARG authCode
 FROM build as run
 RUN npm install -g .
 EXPOSE 8080
-CMD ["ws-chat", "server", "--port", "$PORT", "--heartbeatTime", "$heartbeatTime", "--authCode", "$authCode", "$heart"]
+CMD ["ws-chat", "server", "--heartbeatTime", "$heartbeatTime", "--authCode", "$authCode", "$heart"]
