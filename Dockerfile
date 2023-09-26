@@ -1,4 +1,4 @@
-FROM node:latest-alpine as Setup
+FROM node:latest-alpine as setup
 WORKDIR /app
 RUN apt install git -y
 COPY package*.json ./
@@ -6,14 +6,14 @@ COPY yarn.lock ./
 COPY .* ./
 COPY . .
 
-FROM Setup as Build
+FROM setup as build
 RUN yarn install
 RUN yarn Build
 
 ARG PORT
 ARG heartbeatTime
 ARG authCode
-FROM Build as Run
+FROM build as run
 RUN yarn install -g .
 EXPOSE 8080
 CMD ["ws-chat", "server", "--port", "$PORT", "--heartbeatTime", "$heartbeatTime", "--authCode", "$authCode", "$heart"]
