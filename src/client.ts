@@ -9,8 +9,8 @@ export function createClient(ip = '127.0.0.1', port = 8080, username: string, au
 		console.log(bgYellow(white('[WS]')), 'Closed connection');
 	});
 	ws.on('message', (message) => {
-		const str = message.toString;
-		const json = JSON.parse(str.toString());
+		const str = message.toString();
+		const json = JSON.parse(str);
 		if (json.type === 'message') {
 			console.log(`${json.username} ${gray('>')}`, json.message.toString('utf8'));
 		} else if (json.type === 'authFail') {
