@@ -43,7 +43,8 @@ This is the object that carries all custom data over the WS
     "type": "message",
     "username": string,
     "message": message,
-    "authCode": string
+    "authCode": string,
+    "password": md5String
 }
 ```
 
@@ -51,7 +52,8 @@ This is the object that carries all custom data over the WS
 
 ```json
 {
-	"type": "authFail"
+	"type": "authFail",
+	"step": "password | authToken"
 }
 ```
 
@@ -59,7 +61,11 @@ This is the object that carries all custom data over the WS
 
 ````json
 {
-    "type": "authREQ"
+    "type": "authREQ",
+    "authCode": string,
+    "password": string,
+    "username": string,
+    "oldMessageCount": number,
 }
 
 ### `type = "join/leave"`
