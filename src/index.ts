@@ -62,6 +62,11 @@ const main = defineCommand({
 				oldMessageCount: {
 					valueHint: 100,
 					description: 'How many old messages to return'
+				},
+				password: {
+					valueHint: 'password1234',
+					description: 'The password to be assigned to your username',
+					required: true
 				}
 			},
 			run({ args }) {
@@ -70,7 +75,8 @@ const main = defineCommand({
 					args.port && Number(args.port),
 					args.username && String(args.username),
 					args.authCode && String(args.authCode),
-					args.oldMessageCount && Number(args.oldMessageCount)
+					args.oldMessageCount && Number(args.oldMessageCount),
+					args.password && String(args.password)
 				);
 				createInput(sendMessage, ws);
 			}

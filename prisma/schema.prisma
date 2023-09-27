@@ -11,7 +11,8 @@ datasource db {
 }
 
 model User {
-  username String       @id @unique
+  username String    @id @unique
+  password String    @default("")
   messages Message[]
 }
 

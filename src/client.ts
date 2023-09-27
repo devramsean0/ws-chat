@@ -1,6 +1,7 @@
 import { bgRed, bgGreen, bgYellow, gray, white, bgWhite, black, blue } from 'colorette';
 import { WebSocket } from 'ws';
-export function createClient(ip = '127.0.0.1', port = 8080, username: string, authCode = '', oldMessageCount = 100) {
+import md5 from 'blueimp-md5';
+export function createClient(ip = '127.0.0.1', port = 8080, username: string, authCode = '', oldMessageCount = 100, password: string) {
 	const ws = new WebSocket(`ws://${ip}:${port}`);
 	ws.on('error', (error) => {
 		console.log(bgRed(white('[WS] ERROR')), error);
@@ -37,7 +38,8 @@ export function createClient(ip = '127.0.0.1', port = 8080, username: string, au
 				type: 'authREQ',
 				authCode,
 				username,
-				oldMessageCount
+				oldMessageCount,
+				password: md5(password)
 			})
 		);
 	});
@@ -48,7 +50,7 @@ export function createClient(ip = '127.0.0.1', port = 8080, username: string, au
 				username: username,
 				message,
 				authCode,
-				oldMessageCount
+				password: md5(password)
 			})
 		);
 	}

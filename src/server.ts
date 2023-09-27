@@ -48,13 +48,13 @@ export function createServer(port = 8080, heartbeatTime = 30000, authCode = '') 
 				const str = message.toString();
 				const json = JSON.parse(str);
 				if (json.type === 'message') {
-					if (checkAuth(json, authCode, ws)) {
+					if (await checkAuth(json, authCode, ws, db)) {
 						await savePersistentMessage(json, db);
 						broadcast(message, ws);
 						console.log(bgWhite(black('[WS] MESSAGE')), `${json.username} ${gray('>')} ${json.message.toString('utf8')}`);
 					}
 				} else if (json.type === 'authREQ') {
-					if (checkAuth(json, authCode, ws)) {
+					if (await checkAuth(json, authCode, ws, db)) {
 						await loadPersistentMessages(json, ws, db);
 						clients.add(ws);
 						broadcast(
