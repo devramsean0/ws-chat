@@ -6,6 +6,7 @@
 	"author": "Sean Outram <outramsean0@gmail.com>",
 	"license": "MIT",
 	"dependencies": {
+		"@prisma/client": "5.3.1",
 		"@sapphire/ts-config": "^5.0.0",
 		"citty": "^0.1.4",
 		"colorette": "^2.0.20",
@@ -20,7 +21,8 @@
 		"@types/ws": "^8.5.6",
 		"husky": "^8.0.3",
 		"lint-staged": "^14.0.1",
-		"prettier": "^3.0.3"
+		"prettier": "^3.0.3",
+		"prisma": "^5.3.1"
 	},
 	"scripts": {
 		"prepare": "husky install",

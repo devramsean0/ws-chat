@@ -42,7 +42,7 @@ This is the object that carries all custom data over the WS
 {
     "type": "message",
     "username": string,
-    "password": message,
+    "message": message,
     "authCode": string
 }
 ```

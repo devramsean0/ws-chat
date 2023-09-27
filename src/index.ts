@@ -58,6 +58,10 @@ const main = defineCommand({
 				authCode: {
 					valueHint: 'YourAuthCode',
 					description: 'The auth code of the server'
+				},
+				oldMessageCount: {
+					valueHint: 100,
+					description: 'How many old messages to return'
 				}
 			},
 			run({ args }) {
@@ -65,7 +69,8 @@ const main = defineCommand({
 					args.ip && String(args.ip),
 					args.port && Number(args.port),
 					args.username && String(args.username),
-					args.authCode && String(args.authCode)
+					args.authCode && String(args.authCode),
+					args.oldMessageCount && Number(args.oldMessageCount)
 				);
 				createInput(sendMessage, ws);
 			}

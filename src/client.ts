@@ -1,6 +1,6 @@
-import { bgRed, bgGreen, bgYellow, gray, white, bgWhite, black } from 'colorette';
+import { bgRed, bgGreen, bgYellow, gray, white, bgWhite, black, blue } from 'colorette';
 import { WebSocket } from 'ws';
-export function createClient(ip = '127.0.0.1', port = 8080, username: string, authCode = '') {
+export function createClient(ip = '127.0.0.1', port = 8080, username: string, authCode = '', oldMessageCount = 100) {
 	const ws = new WebSocket(`ws://${ip}:${port}`);
 	ws.on('error', (error) => {
 		console.log(bgRed(white('[WS] ERROR')), error);
@@ -22,6 +22,11 @@ export function createClient(ip = '127.0.0.1', port = 8080, username: string, au
 			case 'join/leave':
 				console.log(bgWhite(black(`A user has ${json.status}`)));
 				return;
+			case 'oldMessages':
+				json.messages.forEach((val: { content: string; userUsername: string }) => {
+					console.log(`${blue('[OLD SESSION]')} ${val.userUsername} ${gray('>')}`, val.content);
+				});
+				return;
 			default:
 		}
 	});
@@ -30,7 +35,9 @@ export function createClient(ip = '127.0.0.1', port = 8080, username: string, au
 		ws.send(
 			JSON.stringify({
 				type: 'authREQ',
-				authCode
+				authCode,
+				username,
+				oldMessageCount
 			})
 		);
 	});
@@ -40,7 +47,8 @@ export function createClient(ip = '127.0.0.1', port = 8080, username: string, au
 				type: 'message',
 				username: username,
 				message,
-				authCode
+				authCode,
+				oldMessageCount
 			})
 		);
 	}
