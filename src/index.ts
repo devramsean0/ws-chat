@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 import { defineCommand, runMain } from 'citty';
-import { createServer } from './server.js';
+import { createMainServer } from './server.js';
 import { createClient } from './client.js';
 import { createInput } from './reader.js';
 
@@ -30,7 +30,7 @@ const main = defineCommand({
 				}
 			},
 			run({ args }) {
-				createServer(
+				createMainServer(
 					args.port && Number(args.port),
 					args.heartbeatTime && Number(args.heartbeatTime),
 					args.authCode && String(args.authCode)
