@@ -1,4 +1,9 @@
 services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: Password
   server:
     image: wschat:latest
     build:
@@ -7,10 +12,6 @@ services:
         port: 8080
         hearbeatTime: 30000
         authCode: ''
+        databaseURL: 'postgresql://postgres:password@shiny-telegram-w4q9q47r4qvc9gjw-5432.app.github.dev/mydb?schema=public'
     ports:
       - '8080:8080'
-  db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: Password
