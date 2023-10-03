@@ -84,3 +84,7 @@ const main = defineCommand({
 	}
 });
 runMain(main);
+
+export * from './server.js';
+export * from './client.js';
+export * from './reader.js';
