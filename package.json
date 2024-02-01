@@ -6,7 +6,7 @@
 	"author": "Sean Outram <outramsean0@gmail.com>",
 	"license": "MIT",
 	"dependencies": {
-		"@prisma/client": "5.9.0",
+		"@prisma/client": "5.9.1",
 		"@sapphire/ts-config": "^5.0.0",
 		"blueimp-md5": "^2.19.0",
 		"citty": "^0.1.4",
