@@ -51,12 +51,12 @@
     prettier "^3.0.0"
 
 "@sapphire/ts-config@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@sapphire/ts-config/-/ts-config-5.0.0.tgz#bfe230569e138c81aa248da3a35cefa3a6d1f6dc"
-  integrity sha512-E4JfpCK/OxaH8lYEP0+xbRUeIBanEOkA5IUtvj+Uib2TG2p7H0Sb1mF1fpmf0ICyDaOu9/201Il/ymV3cr/isw==
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@sapphire/ts-config/-/ts-config-5.0.1.tgz#b2db17f25c87526c967e34030c7b46bc34096b88"
+  integrity sha512-86YBYNBDNs6/bCrTsv274553v43Bz8YljfrrIQ4N8ll2npUxbf6cpC0gjfJY+FMa1HwKUgoMF4lvhzY0Ph0smw==
   dependencies:
     tslib "^2.6.2"
-    typescript "^5.2.2"
+    typescript "^5.4.2"
 
 "@types/blueimp-md5@^2.18.0":
   version "2.18.2"
@@ -442,7 +442,7 @@ type-fest@^1.0.2:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-1.4.0.tgz#e9fb813fe3bf1744ec359d55d1affefa76f14be1"
   integrity sha512-yGSza74xk0UG8k+pLh5oeoYirvIiWo5t0/o3zHHAO2tRDiZcxWP7fywNlXhqb6/r6sWvwi+RsyQMWhVLe4BVuA==
 
-typescript@^5.2.2:
+typescript@^5.2.2, typescript@^5.4.2:
   version "5.4.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.4.2.tgz#0ae9cebcfae970718474fe0da2c090cad6577372"
   integrity sha512-+2/g0Fds1ERlP6JsakQQDXjZdZMM+rqpamFZJEKh4kwTIn3iDkgKtby0CeNd5ATNZ4Ry1ax15TMx0W2V+miizQ==
