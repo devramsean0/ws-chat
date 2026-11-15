@@ -18,7 +18,7 @@
 		"ws-chat": "./dist/index.js"
 	},
 	"devDependencies": {
-		"@sapphire/prettier-config": "^2.0.0",
+		"@sapphire/prettier-config": "^3.0.0",
 		"@types/blueimp-md5": "^2.18.0",
 		"@types/ws": "^8.5.6",
 		"husky": "^8.0.3",
