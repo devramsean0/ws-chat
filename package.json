@@ -7,7 +7,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"@prisma/client": "5.22.0",
-		"@sapphire/ts-config": "^5.0.0",
+		"@sapphire/ts-config": "^6.0.0",
 		"blueimp-md5": "^2.19.0",
 		"citty": "^0.1.4",
 		"colorette": "^2.0.20",
